@@ -21,6 +21,6 @@ export const fetchCartFromSession = createAction(
 );
 
 export const setCart = createAction(
-  '[ProduCartt] Set cart',
+  '[Cart] Set cart',
   props<{ products: Cart[] }>()
 );

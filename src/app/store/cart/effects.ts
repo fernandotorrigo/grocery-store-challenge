@@ -2,14 +2,21 @@ import { Injectable } from '@angular/core';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition
+  MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY } from 'rxjs';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
+import {
+  catchError,
+  concatMap,
+  exhaustMap,
+  map,
+  switchMap,
+} from 'rxjs/operators';
 import { RatesService } from 'src/app/services/rates/rates.service';
+import { Cart } from 'src/app/shared/models';
 import { fetchRates, setRates } from '../rate/actions';
-import { fetchCartFromSession } from './actions';
+import { fetchCartFromSession, setCart } from './actions';
 
 enum ErrorMsgs {
   FETCH_PRODUCTS = 'Unable to get products, we are working to resolve the issue as quickly as possible.',
@@ -26,41 +33,22 @@ export class CartStoreEffects {
     verticalPosition: this.verticalPosition,
   };
 
-  FetchRates$ = createEffect(() =>
+  fetchCartFromSession$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fetchCartFromSession),
-      exhaustMap(() => {
-        return this.ratesService.getCurrencyData().pipe(
-          map((currencyData) => {
-            if (!currencyData.quotes) {
-              this._snackBar.open(
-                ErrorMsgs.FETCH_RATES,
-                'Close',
-                this.configSnackBar
-              );
-            }
-
-            return setRates({
-              currencyData: currencyData.quotes,
-            });
-          }),
-          catchError(() => {
-            console.log('entrou aqui ');
-            this._snackBar.open(
-              ErrorMsgs.FETCH_RATES,
-              'Close',
-              this.configSnackBar
-            );
-            return EMPTY;
-          })
-        );
-      })
+      map(() => {
+        const dataSessionCart = sessionStorage.getItem('cart');
+        try {
+          if (!dataSessionCart) return [];
+          const response: Cart[] = JSON.parse(dataSessionCart);
+          return response;
+        } catch (error) {
+          return [];
+        }
+      }),
+      map((products) => setCart({ products }))
     )
   );
 
-  constructor(
-    private actions$: Actions,
-    private ratesService: RatesService,
-    private _snackBar: MatSnackBar
-  ) {}
+  constructor(private actions$: Actions) {}
 }
