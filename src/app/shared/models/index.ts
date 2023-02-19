@@ -21,7 +21,7 @@ export interface Rates {
   quotes: Quotes;
 }
 
-export interface State {
+export interface RootState {
   groceryRootStore: {
     products: Product[];
     cart: Cart[];

@@ -3,8 +3,14 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Cart, OptionsCurrency, Quotes, State } from 'src/app/shared/models';
-import { selectCart, selectRates } from 'src/app/store/selectors';
+import {
+  Cart,
+  OptionsCurrency,
+  Quotes,
+  RootState,
+} from 'src/app/shared/models';
+import { selectCart } from 'src/app/store/cart/selectors';
+import { selectRates } from 'src/app/store/rate/selectors';
 
 @Component({
   selector: 'app-order-summary',
@@ -41,7 +47,7 @@ export class OrderSummaryComponent {
     return sumWithInitial.total;
   }
 
-  constructor(private store$: Store<State>) {
+  constructor(private store$: Store<RootState>) {
     this.cart$ = this.store$.select(selectCart);
     this.rates$ = this.store$.select(selectRates);
   }
@@ -80,8 +86,8 @@ export class OrderSummaryComponent {
       .subscribe();
   }
 
-  displayFn(user: OptionsCurrency): string {
-    return user && user.name ? user.name : '';
+  displayFn(currency: OptionsCurrency): string {
+    return currency && currency.name ? currency.name : '';
   }
 
   private updateDataFiltered(name: string): OptionsCurrency[] {

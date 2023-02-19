@@ -23,11 +23,14 @@ import { OrderSummaryComponent } from './components/order-summary/order-summary.
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductComponent } from './components/product/product.component';
 import { HomeComponent } from './home/home.component';
-import { RootStoreEffects } from './store/effects';
 import { groceryRootStore } from './store/reducer';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import uk from '@angular/common/locales/uk';
+import { RateStoreEffects } from './store/rate/effects';
+import { ProductsStoreEffects } from './store/product/effects';
+import { CartStoreEffects } from './store/cart/effects';
 registerLocaleData(uk);
 
 const materialModules = [
@@ -39,6 +42,7 @@ const materialModules = [
   MatAutocompleteModule,
   MatIconModule,
   MatSidenavModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
@@ -58,7 +62,11 @@ const materialModules = [
     ReactiveFormsModule,
     ...materialModules,
     StoreModule.forRoot({ groceryRootStore }),
-    EffectsModule.forRoot([RootStoreEffects]),
+    EffectsModule.forRoot([
+      RateStoreEffects,
+      ProductsStoreEffects,
+      CartStoreEffects,
+    ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     BrowserAnimationsModule,
   ],

@@ -1,8 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
-import { State } from 'src/app/shared/models';
-import * as ProductsCartActions from './actions';
+import { RootState } from 'src/app/shared/models';
+import {
+  addToCart,
+  removeFromCart,
+  updateQtdProductCart,
+} from './cart/actions';
+import { setProducts } from './product/actions';
+import { setRates } from './rate/actions';
 
-export const initialState: State = {
+export const initialState: RootState = {
   groceryRootStore: {
     products: [],
     cart: [],
@@ -12,13 +18,13 @@ export const initialState: State = {
 
 export const groceryRootStore = createReducer(
   initialState.groceryRootStore,
-  on(ProductsCartActions.AddToCart, (state, payload) => {
+  on(addToCart, (state, payload) => {
     return {
       ...state,
       cart: [...state.cart, payload.product],
     };
   }),
-  on(ProductsCartActions.UpdateQtdProductCart, (state, payload) => {
+  on(updateQtdProductCart, (state, payload) => {
     return {
       ...state,
       cart: [
@@ -34,19 +40,19 @@ export const groceryRootStore = createReducer(
       ],
     };
   }),
-  on(ProductsCartActions.RemoveFromCart, (state, payload) => {
+  on(removeFromCart, (state, payload) => {
     return {
       ...state,
       cart: [...state.cart.filter((item) => item.id !== payload.product.id)],
     };
   }),
-  on(ProductsCartActions.SetProducts, (state, payload) => {
+  on(setProducts, (state, payload) => {
     return {
       ...state,
       products: [...payload.products],
     };
   }),
-  on(ProductsCartActions.SetRates, (state, payload) => {
+  on(setRates, (state, payload) => {
     return {
       ...state,
       currencyData: { ...payload.currencyData },

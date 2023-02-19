@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Product, State } from 'src/app/shared/models';
-import { selectProducts } from 'src/app/store/selectors';
+import { Product, RootState } from 'src/app/shared/models';
+import { selectProducts } from 'src/app/store/product/selectors';
 
 @Component({
   selector: 'app-product-list',
@@ -11,7 +11,7 @@ import { selectProducts } from 'src/app/store/selectors';
 })
 export class ProductListComponent implements OnInit {
   products$!: Observable<Product[]>;
-  constructor(private store$: Store<State>) {}
+  constructor(private store$: Store<RootState>) {}
 
   ngOnInit() {
     this.products$ = this.store$.select(selectProducts);

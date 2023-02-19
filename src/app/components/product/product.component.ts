@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Product, State } from 'src/app/shared/models';
-import * as ProductsCartActions from 'src/app/store/actions';
+import { Product, RootState } from 'src/app/shared/models';
+import {
+  addToCart,
+  removeFromCart,
+  updateQtdProductCart,
+} from 'src/app/store/cart/actions';
 
 @Component({
   selector: 'app-product',
@@ -12,7 +16,7 @@ import * as ProductsCartActions from 'src/app/store/actions';
 export class ProductComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
-  constructor(private store: Store<State>, private formBuilder: FormBuilder) {}
+  constructor(private store: Store<RootState>, private formBuilder: FormBuilder) {}
 
   @Input() product!: Product;
 
@@ -21,16 +25,14 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {}
   addToCart(product: Product) {
-    this.store.dispatch(
-      ProductsCartActions.AddToCart({ product: { ...product, quantity: 1 } })
-    );
+    this.store.dispatch(addToCart({ product: { ...product, quantity: 1 } }));
     this.inCart = true;
     this.quantity = 1;
   }
 
   removeFromCart(product: Product) {
     this.store.dispatch(
-      ProductsCartActions.RemoveFromCart({
+      removeFromCart({
         product: { ...product, quantity: 0 },
       })
     );
@@ -43,13 +45,13 @@ export class ProductComponent implements OnInit {
     if (newQuantity === 0) {
       this.inCart = false;
       this.store.dispatch(
-        ProductsCartActions.RemoveFromCart({
+        removeFromCart({
           product: { ...product, quantity: 0 },
         })
       );
     } else {
       this.store.dispatch(
-        ProductsCartActions.UpdateQtdProductCart({
+        updateQtdProductCart({
           product: { ...product, quantity: newQuantity },
         })
       );

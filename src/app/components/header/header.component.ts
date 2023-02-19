@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Cart, State } from 'src/app/shared/models';
-import { selectCart } from 'src/app/store/selectors';
-import * as ProductsCartActions from '../../store/actions';
+import { Cart, RootState } from 'src/app/shared/models';
+import { selectCart } from 'src/app/store/cart/selectors';
+import { fetchProducts } from 'src/app/store/product/actions';
+import { fetchRates } from 'src/app/store/rate/actions';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,13 @@ export class HeaderComponent implements OnInit {
   cart$!: Observable<Cart[]>;
   cart!: Cart[];
 
-  constructor(private store$: Store<State>) {
+  constructor(private store$: Store<RootState>) {
     this.cart$ = this.store$.pipe(select(selectCart));
   }
 
   ngOnInit() {
-    this.store$.dispatch(ProductsCartActions.FetchProducts());
-    this.store$.dispatch(ProductsCartActions.FetchRates());
+    this.store$.dispatch(fetchProducts());
+    this.store$.dispatch(fetchRates());
     this.cart$.subscribe((data) => {
       this.cart = data;
     });
