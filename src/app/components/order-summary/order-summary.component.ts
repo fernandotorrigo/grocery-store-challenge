@@ -85,7 +85,6 @@ export class OrderSummaryComponent {
   }
 
   private updateDataFiltered(name: string): OptionsCurrency[] {
-    this.calcConvertCurrencie();
     return this.filterDataSelected(name);
   }
 
@@ -95,7 +94,7 @@ export class OrderSummaryComponent {
     );
   }
 
-  calcConvertCurrencie(): number {
+  get totalCartConverted(): number {
     let totalValueConverted = 0;
     const currencySeleted = this.currentCurrency.value as OptionsCurrency;
 
@@ -107,6 +106,8 @@ export class OrderSummaryComponent {
         totalValueConverted = this.totalCart * valueCurrentCurrency[0].value;
         this.codeCurrency = valueCurrentCurrency[0].name.slice(3);
       }
+    } else {
+      totalValueConverted = this.totalCart;
     }
 
     return totalValueConverted;

@@ -3,7 +3,7 @@
 .container {
   height: 200px;
   border-radius: 8px;
-  border: 2px solid $primary;
+  background: transparent;
   margin: 0;
 }
 
@@ -18,6 +18,7 @@
   display: flex;
   padding: 20px;
   width: 100%;
+  border: none;
 
   .box-summary {
     display: flex;

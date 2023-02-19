@@ -17,7 +17,7 @@ header {
       font-weight: 700;
       margin: 0;
       letter-spacing: 1px;
-      color:$primary;
+      color: $primary;
     }
   }
 
@@ -29,6 +29,25 @@ header {
       background-color: $accent;
       padding: 10px;
       border-radius: 8px;
+      position: relative;
+      column-gap: 8px;
+      
+      .minicart-quantity {
+        position: absolute;
+        left: 20px;
+        top: 6px;
+        background-color: #eb0203;
+        border-radius: 50%;
+        color: #fff;
+        display: inline-block;
+        font-size: 0.5625rem;
+        line-height: 0.9375rem;
+        text-align: center;
+        min-width: 17px;
+        height: 15px;
+        padding-left: 1px;
+        padding-right: 1px;
+      }
     }
   }
 }
