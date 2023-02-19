@@ -1,0 +1,47 @@
+@import "../../shared//theme/configs";
+
+.container {
+  height: 200px;
+  border-radius: 8px;
+  border: 2px solid $primary;
+  margin: 0;
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav {
+  display: flex;
+  padding: 20px;
+  width: 100%;
+
+  .box-summary {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 24px;
+    height: inherit;
+
+    &-left {
+      h5 {
+        font-size: 23px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: $primary;
+      }
+    }
+
+    &-title {
+      p {
+      }
+      span {
+        color: $primary;
+        font-weight: 700;
+      }
+    }
+  }
+}

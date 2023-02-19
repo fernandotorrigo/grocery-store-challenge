@@ -1,14 +1,19 @@
 <header>
   <div class="brand">
-    <img src="/assets/images/logo.png" alt="avatar" />
     <h5>Groceries</h5>
   </div>
-  <div class="nav">
-    <ul>
-      <li *ngIf="cart$ | async as cart">
-        <img src="/assets/images/shopping-bag.png" alt="cart" />
-        <span class="badge" *ngIf="cart.length > 0">{{ cart.length }}</span>
-      </li>
-    </ul>
+  <div class="data-cart">
+    <div class="data-cart-itens" *ngIf="cart$ | async as cart">
+      <div>
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Cart icon"
+          fontIcon="shopping_cart"
+        ></mat-icon>
+      </div>
+      <div>
+        <span>{{ totalCart | currency }}</span>
+      </div>
+    </div>
   </div>
 </header>

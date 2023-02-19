@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { State } from 'src/app/models';
+import { State } from 'src/app/shared/models';
 import * as ProductsCartActions from './actions';
 
 export const initialState: State = {

@@ -1,26 +1,58 @@
-<div>
-  <div>
-    <h1>Order summary</h1>
-  </div>
-  <div>Currency selected: {{ codeCurrency }}</div>
-  <div>Total to pay: {{ totalCart | currency : codeCurrency }}</div>
-  <form class="example-form">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Assignee</mat-label>
-      <input
-        type="text"
-        matInput
-        [formControl]="currentCurrency"
-        [matAutocomplete]="auto"
-      />
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option
-          *ngFor="let option of filteredOptions$ | async"
-          [value]="option"
-        >
-          {{ option.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
-</div>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" from>
+    <div class="box-summary">
+      <div class="box-summary-left">
+        <div class="box-summary-title">
+          <h5>Order summary</h5>
+        </div>
+        <form class="form">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Select the currency</mat-label>
+            <input
+              type="text"
+              matInput
+              [formControl]="currentCurrency"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option
+                *ngFor="let option of filteredOptions$ | async"
+                [value]="option"
+              >
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div class="box-summary-right">
+        <div class="box-summary-title">
+          <p>
+            <strong>Currency selected: </strong> <span>{{ codeCurrency }}</span>
+          </p>
+        </div>
+        <div class="box-summary-title">
+          <p>
+            <strong>Total to pay: </strong>
+            <span>{{ totalCart | currency : codeCurrency }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </mat-drawer>
+
+  <ng-container *ngIf="!showOrderSummary">
+    <div class="sidenav-content">
+      <button
+        extended
+        color="warn"
+        (click)="drawer.toggle(); showOrderSummary = !showOrderSummary"
+        mat-raised-button
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        Checkout
+      </button>
+    </div>
+  </ng-container>
+</mat-drawer-container>

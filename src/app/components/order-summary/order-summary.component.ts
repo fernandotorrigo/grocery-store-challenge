@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Cart, OptionsCurrency, Quotes, State } from 'src/app/models';
+import { Cart, OptionsCurrency, Quotes, State } from 'src/app/shared/models';
 import { selectCart, selectRates } from 'src/app/store/selectors';
 
 @Component({
@@ -12,6 +12,9 @@ import { selectCart, selectRates } from 'src/app/store/selectors';
   styleUrls: ['./order-summary.component.scss'],
 })
 export class OrderSummaryComponent {
+  filteredOptions$!: Observable<OptionsCurrency[]>;
+  currentCurrency = new FormControl<string | OptionsCurrency>('');
+
   cart$!: Observable<Cart[]>;
 
   rates$!: Observable<Quotes>;
@@ -20,11 +23,9 @@ export class OrderSummaryComponent {
 
   rates: OptionsCurrency[] = [];
 
-  currentCurrency = new FormControl<string | OptionsCurrency>('');
-
-  filteredOptions$!: Observable<OptionsCurrency[]>;
-
   codeCurrency: string = 'GBP';
+
+  showOrderSummary = false;
 
   get totalCart(): number {
     const sumWithInitial = this.cart.reduce(
@@ -109,5 +110,9 @@ export class OrderSummaryComponent {
     }
 
     return totalValueConverted;
+  }
+
+  setShowOrderSummary() {
+    this.showOrderSummary = !this.showOrderSummary;
   }
 }

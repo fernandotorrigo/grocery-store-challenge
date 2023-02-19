@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Cart, Product, Quotes } from 'src/app/models';
+import { Cart, Product, Quotes } from 'src/app/shared/models';
 
 // Defining actions for interacting with a piece of state.
 export const AddToCart = createAction(

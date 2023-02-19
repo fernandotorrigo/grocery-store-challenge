@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Product, State } from 'src/app/models';
+import { Product, State } from 'src/app/shared/models';
 import * as ProductsCartActions from 'src/app/store/actions';
 
 @Component({

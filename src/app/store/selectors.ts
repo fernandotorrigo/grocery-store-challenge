@@ -1,4 +1,4 @@
-import { State } from '../models';
+import { State } from '../shared/models';
 
 export const selectProducts = (state: State) => {
   return state.groceryRootStore.products;
