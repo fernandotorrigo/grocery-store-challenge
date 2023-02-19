@@ -1,0 +1,26 @@
+<div>
+  <div>
+    <h1>Order summary</h1>
+  </div>
+  <div>Currency selected: {{ codeCurrency }}</div>
+  <div>Total to pay: {{ totalCart | currency : codeCurrency }}</div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Assignee</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="currentCurrency"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          *ngFor="let option of filteredOptions$ | async"
+          [value]="option"
+        >
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>
