@@ -25,7 +25,7 @@ export class OrderSummaryComponent {
 
   rates$!: Observable<Quotes>;
 
-  cart!: Cart[];
+  cart: Cart[] = [];
 
   rates: OptionsCurrency[] = [];
 
