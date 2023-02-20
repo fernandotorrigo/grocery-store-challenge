@@ -3,7 +3,7 @@ import {
   ComponentFixture,
   fakeAsync,
   flush,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { skip } from 'rxjs';
@@ -52,6 +52,7 @@ describe('HeaderComponent', () => {
       .subscribe((scannedAction) =>
         expect(scannedAction).toEqual(fetchCartFromSession())
       );
+    expect(component).toBeTruthy();
   });
 
   it('Should return the total cart = 4.2', fakeAsync(() => {
@@ -81,10 +82,7 @@ describe('HeaderComponent', () => {
   it('Should return the total cart = 0', fakeAsync((done: any) => {
     const cartEmpty = {
       groceryRootStore: {
-        products: [],
-        currencyData: {
-          BRL: 123,
-        },
+        ...initialStateMock.groceryRootStore,
         cart: [],
       },
     };

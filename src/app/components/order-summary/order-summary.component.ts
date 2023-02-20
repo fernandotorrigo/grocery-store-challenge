@@ -34,6 +34,9 @@ export class OrderSummaryComponent {
   showOrderSummary = false;
 
   get totalCart(): number {
+    if (this.cart.length === 0) {
+      return 0;
+    }
     const sumWithInitial = this.cart.reduce(
       (accumulator, currentValue) => {
         const { quantity, price } = currentValue;
@@ -90,7 +93,7 @@ export class OrderSummaryComponent {
     return currency && currency.name ? currency.name : '';
   }
 
-  private updateDataFiltered(name: string): OptionsCurrency[] {
+  updateDataFiltered(name: string): OptionsCurrency[] {
     return this.filterDataSelected(name);
   }
 
