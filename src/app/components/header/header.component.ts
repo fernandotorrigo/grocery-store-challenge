@@ -31,6 +31,9 @@ export class HeaderComponent implements OnInit {
   }
 
   get totalCart(): number {
+    if (this.cart.length === 0) {
+      return 0;
+    }
     const sumWithInitial = this.cart.reduce(
       (accumulator, currentValue) => {
         const { quantity, price } = currentValue;
