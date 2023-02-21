@@ -3,7 +3,7 @@ import {
   ComponentFixture,
   fakeAsync,
   flush,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -120,7 +120,7 @@ describe('ProductComponent', () => {
         cart: newCart,
       },
     };
-    component.updateQuantity(4, currentProduct);
+    component.updateQuantity(newQtd, currentProduct);
     store.setState(currentState);
     store.refreshState();
     flush();
@@ -128,10 +128,45 @@ describe('ProductComponent', () => {
     component.cart$.subscribe((cart) => {
       expect(
         cart.filter((item) => item.id === currentProduct.id)[0].quantity
-      ).toEqual(4);
+      ).toEqual(newQtd);
     });
 
     expect(component.inCart).toBe(true);
-    expect(component.quantity).toBe(4);
+    expect(component.quantity).toBe(newQtd);
+  }));
+
+  it('Should update the quantity to ZERO', fakeAsync(() => {
+    const newQtd = 0;
+    const currentProduct = stateDefaultMock.groceryRootStore.products[0];
+    component.product = currentProduct;
+
+    const defaultCart: Cart[] = stateDefaultMock.groceryRootStore.cart;
+    const newCart = defaultCart.map((data) => {
+      return {
+        ...data,
+        quantity: currentProduct.id === data.id ? newQtd : data.quantity,
+      };
+    });
+
+    const currentState = {
+      groceryRootStore: {
+        ...stateDefaultMock.groceryRootStore,
+        cart: newCart,
+      },
+    };
+    store.setState(currentState);
+    component.updateQuantity(newQtd, currentProduct);
+    expect(component.inCart).toEqual(false);
+    expect(component.quantity).toBe(newQtd);
+
+    store.refreshState();
+    flush();
+
+    component.cart$.subscribe((cart) => {
+      expect(
+        cart.filter((item) => item.id === currentProduct.id)[0].quantity
+      ).toEqual(newQtd);
+    });
+
   }));
 });
