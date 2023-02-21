@@ -5,22 +5,12 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
-import {
-  catchError,
-  concatMap,
-  exhaustMap,
-  map,
-  switchMap,
-} from 'rxjs/operators';
-import { RatesService } from 'src/app/services/rates/rates.service';
+import { map } from 'rxjs/operators';
 import { Cart } from 'src/app/shared/models';
-import { fetchRates, setRates } from '../rate/actions';
 import { fetchCartFromSession, setCart } from './actions';
 
 enum ErrorMsgs {
-  FETCH_PRODUCTS = 'Unable to get products, we are working to resolve the issue as quickly as possible.',
-  FETCH_RATES = 'Unable to get currency quotes, we are working to resolve the issue as quickly as possible.',
+  FETCH_CART = 'Unable to get the cart, we are working to resolve the issue as quickly as possible.',
 }
 
 @Injectable()
@@ -43,6 +33,11 @@ export class CartStoreEffects {
           const response: Cart[] = JSON.parse(dataSessionCart);
           return response;
         } catch (error) {
+          this._snackBar.open(
+            ErrorMsgs.FETCH_CART,
+            'Close',
+            this.configSnackBar
+          );
           return [];
         }
       }),
@@ -50,5 +45,5 @@ export class CartStoreEffects {
     )
   );
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private _snackBar: MatSnackBar) {}
 }
