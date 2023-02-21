@@ -1,4 +1,4 @@
-import { RootState } from '../models';
+import { Rates, RootState } from '../models';
 
 export const initialStateMock: RootState = {
   groceryRootStore: {
@@ -64,4 +64,21 @@ export const stateDefaultMock: RootState = {
       },
     ],
   },
+};
+
+export const ratestMock: Rates = {
+  quotes: {
+    GBPAED: 4.423811,
+    GBPAFN: 106.549773,
+    GBPALL: 129.657088,
+    GBPAMD: 469.335743,
+    GBPANG: 2.151216,
+    GBPAOA: 610.03339,
+    GBPARS: 231.995983,
+    GBPAUD: 1.750582,
+    GBPZWL: 387.816306,
+  },
+  source: 'GBP',
+  success: true,
+  timestamp: 1676807943,
 };
