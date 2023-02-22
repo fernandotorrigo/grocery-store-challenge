@@ -10,10 +10,12 @@
           aria-label="Cart icon"
           fontIcon="shopping_cart"
         ></mat-icon>
-        <span *ngIf="cart.length > 0" class="minicart-quantity">{{ cart.length }}</span>
+        <span *ngIf="cart.length > 0" class="minicart-quantity">{{
+          cart.length
+        }}</span>
       </div>
       <div>
-        <span>{{ totalCart | currency }}</span>
+        <span>{{ valueTotalCart | currency }}</span>
       </div>
     </div>
   </div>

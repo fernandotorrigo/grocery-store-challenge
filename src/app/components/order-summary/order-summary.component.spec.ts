@@ -53,7 +53,7 @@ describe('OrderSummaryComponent', () => {
     store.refreshState();
     flush();
 
-    expect(component.totalCart).toBe(0);
+    expect(component.valueTotalCart).toBe(0);
   }));
 
   it('Should set currency to GBPBRL and return R$65.34 on total to pay', fakeAsync(() => {

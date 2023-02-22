@@ -9,6 +9,7 @@ import {
   Quotes,
   RootState,
 } from 'src/app/shared/models';
+import { totalCart } from 'src/app/shared/utils';
 import { selectCart } from 'src/app/store/cart/selectors';
 import { selectRates } from 'src/app/store/rate/selectors';
 
@@ -33,21 +34,8 @@ export class OrderSummaryComponent {
 
   showOrderSummary = false;
 
-  get totalCart(): number {
-    if (this.cart.length === 0) {
-      return 0;
-    }
-    const sumWithInitial = this.cart.reduce(
-      (accumulator, currentValue) => {
-        const { quantity, price } = currentValue;
-        const itemTotal = quantity * price;
-
-        accumulator.total += itemTotal;
-        return accumulator;
-      },
-      { total: 0 }
-    );
-    return sumWithInitial.total;
+  get valueTotalCart(): number {
+    return totalCart(this.cart);
   }
 
   constructor(private store$: Store<RootState>) {
@@ -112,11 +100,11 @@ export class OrderSummaryComponent {
         currencySeleted.name
       );
       if (valueCurrentCurrency.length > 0) {
-        totalValueConverted = this.totalCart * valueCurrentCurrency[0].value;
+        totalValueConverted = this.valueTotalCart * valueCurrentCurrency[0].value;
         this.codeCurrency = valueCurrentCurrency[0].name.slice(3);
       }
     } else {
-      totalValueConverted = this.totalCart;
+      totalValueConverted = this.valueTotalCart;
     }
 
     return totalValueConverted;

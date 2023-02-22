@@ -2,8 +2,8 @@ import express, { Express, Request, Response } from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import products from './products';
-import rates from './rates';
+import products from './mocks/products';
+import rates from './mocks/rates';
 
 dotenv.config();
 
@@ -37,13 +37,13 @@ app.get('/rates', (req: Request, res: Response) => {
   };
 
   res.json(rates);
-//   axios
-//     .get('https://api.apilayer.com/currency_data/live?source=GBP', config)
-//     .then((response) => {
-//       res.json(response.data);
-//     })
-//     .catch((error) => res.json(error));
-// });
+  //   axios
+  //     .get('https://api.apilayer.com/currency_data/live?source=GBP', config)
+  //     .then((response) => {
+  //       res.json(response.data);
+  //     })
+  //     .catch((error) => res.json(error));
+});
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

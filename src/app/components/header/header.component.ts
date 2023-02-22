@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Cart, RootState } from 'src/app/shared/models';
+import { totalCart } from 'src/app/shared/utils';
 import { fetchCartFromSession } from 'src/app/store/cart/actions';
 import { selectCart } from 'src/app/store/cart/selectors';
 import { fetchProducts } from 'src/app/store/product/actions';
@@ -30,20 +31,12 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  get totalCart(): number {
-    if (this.cart.length === 0) {
-      return 0;
-    }
-    const sumWithInitial = this.cart.reduce(
-      (accumulator, currentValue) => {
-        const { quantity, price } = currentValue;
-        const itemTotal = quantity * price;
-
-        accumulator.total += itemTotal;
-        return accumulator;
-      },
-      { total: 0 }
-    );
-    return sumWithInitial.total;
+  /**
+   * Returns the cart total
+   *
+   * @returns {number}
+   */
+  get valueTotalCart(): number {
+    return totalCart(this.cart);
   }
 }

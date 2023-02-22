@@ -76,7 +76,7 @@ describe('HeaderComponent', () => {
     store.refreshState();
     flush();
 
-    expect(component.totalCart).toBe(10.5);
+    expect(component.valueTotalCart).toBe(10.5);
   }));
 
   it('Should return the total cart = 0', fakeAsync((done: any) => {
@@ -91,6 +91,6 @@ describe('HeaderComponent', () => {
     store.refreshState();
     flush();
 
-    expect(component.totalCart).toBe(0);
+    expect(component.valueTotalCart).toBe(0);
   }));
 });
