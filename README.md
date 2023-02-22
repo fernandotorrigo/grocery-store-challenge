@@ -1,27 +1,25 @@
-# GroceryStoreChallengeStore
+# BJSS grocery-store-challenge 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.6.
+This is a project to demonstrate the use of a shopping cart with Angular 15+, thinking about usability, scalability, responsive with tested functions.
 
-## Development server
+### Install npm packages and start the project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Install the `npm` packages described in the `package.json` for backend and frontend and stats the project:
 
-## Code scaffolding
+```shell
+cd backend && npm install & cd .. && npm install
+npm run start:all
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Start the dev server by running the command above. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
-## Build
+## npm scripts
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+These are the most useful commands defined in `package.json`:
 
-## Running unit tests
+* `start:all` - Config backend build and run the application and then run the frontend as well and make the complete application available on port `4200`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+These are the test-related scripts:
 
-## Running end-to-end tests
+* `npm test` - builds the application and runs grocery-store-challenge tests.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

@@ -36,13 +36,12 @@ app.get('/rates', (req: Request, res: Response) => {
     },
   };
 
-  res.json(rates);
-  //   axios
-  //     .get('https://api.apilayer.com/currency_data/live?source=GBP', config)
-  //     .then((response) => {
-  //       res.json(response.data);
-  //     })
-  //     .catch((error) => res.json(error));
+  axios
+    .get('https://api.apilayer.com/currency_data/live?source=GBP', config)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => res.json(error));
 });
 
 app.listen(port, () => {
