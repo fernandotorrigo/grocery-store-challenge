@@ -34,6 +34,11 @@ export class OrderSummaryComponent {
 
   showOrderSummary = false;
 
+  /**
+   * Returns the cart total
+   *
+   * @returns {number}
+   */
   get valueTotalCart(): number {
     return totalCart(this.cart);
   }
@@ -77,20 +82,43 @@ export class OrderSummaryComponent {
       .subscribe();
   }
 
-  displayFn(currency: OptionsCurrency): string {
+  /**
+   * Returns the option formated
+   * @param {OptionsCurrency} currency
+   *
+   * @returns {string}
+   */
+  displayOptionFormated(currency: OptionsCurrency): string {
     return currency && currency.name ? currency.name : '';
   }
 
+  /**
+   * Returns array with the data filtered by name
+   * @param {string} name
+   *
+   * @returns {OptionsCurrency[]}
+   */
   updateDataFiltered(name: string): OptionsCurrency[] {
     return this.filterDataSelected(name);
   }
 
+  /**
+   * Returns array with the data filtered by name toLocaleLowerCase
+   * @param {string} name
+   *
+   * @returns {OptionsCurrency[]}
+   */
   private filterDataSelected(name: string): OptionsCurrency[] {
     return this.rates.filter((item) =>
       item.name.toLowerCase().includes(name.toLocaleLowerCase())
     );
   }
 
+  /**
+   * Returns the cart total converting with the current quotation
+   *
+   * @returns {number}
+   */
   get totalCartConverted(): number {
     let totalValueConverted = 0;
     const currencySeleted = this.currentCurrency.value as OptionsCurrency;
@@ -100,7 +128,8 @@ export class OrderSummaryComponent {
         currencySeleted.name
       );
       if (valueCurrentCurrency.length > 0) {
-        totalValueConverted = this.valueTotalCart * valueCurrentCurrency[0].value;
+        totalValueConverted =
+          this.valueTotalCart * valueCurrentCurrency[0].value;
         this.codeCurrency = valueCurrentCurrency[0].name.slice(3);
       }
     } else {
@@ -110,6 +139,10 @@ export class OrderSummaryComponent {
     return totalValueConverted;
   }
 
+  /**
+   * Function void to show or not order summary
+   *
+   */
   setShowOrderSummary() {
     this.showOrderSummary = !this.showOrderSummary;
   }

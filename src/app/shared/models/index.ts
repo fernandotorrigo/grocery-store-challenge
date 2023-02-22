@@ -32,3 +32,7 @@ export interface OptionsCurrency {
   name: string;
   value: number;
 }
+
+export enum envData {
+  BASE_API = ' http://localhost:8000',
+}

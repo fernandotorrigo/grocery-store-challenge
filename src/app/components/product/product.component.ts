@@ -34,6 +34,12 @@ export class ProductComponent implements OnInit {
     });
   }
 
+  /**
+   * Function to set in the cart if the product received by parameter is in the cart
+   *
+   * @param {Cart[]} data
+   *
+   */
   setIsInCart(data: Cart[]): void {
     const item = data.filter((cart) => cart.id === this.product.id);
     if (item.length > 0) {
@@ -42,13 +48,25 @@ export class ProductComponent implements OnInit {
     }
   }
 
-  addToCart(product: Product) {
+  /**
+   * Function to add new item to cart
+   *
+   * @param {Product} product
+   *
+   */
+  addToCart(product: Product): void {
     this.store$.dispatch(addToCart({ product: { ...product, quantity: 1 } }));
     this.inCart = true;
     this.quantity = 1;
   }
 
-  removeFromCart(product: Product) {
+  /**
+   * Function to remove item from cart
+   *
+   * @param {Product} product
+   *
+   */
+  removeFromCart(product: Product): void {
     this.store$.dispatch(
       removeFromCart({
         product: { ...product, quantity: 0 },
@@ -57,6 +75,13 @@ export class ProductComponent implements OnInit {
     this.inCart = false;
   }
 
+  /**
+   * Function that update the product quantity on the cart
+   *
+   * @param {Product} product
+   * @param {number} newQuantity
+   *
+   */
   updateQuantity(newQuantity: number, product: Product): void {
     this.quantity = newQuantity;
 

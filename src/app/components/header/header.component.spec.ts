@@ -79,7 +79,7 @@ describe('HeaderComponent', () => {
     expect(component.valueTotalCart).toBe(10.5);
   }));
 
-  it('Should return the total cart = 0', fakeAsync((done: any) => {
+  it('Should return the total cart = 0', fakeAsync(() => {
     const cartEmpty = {
       groceryRootStore: {
         ...initialStateMock.groceryRootStore,

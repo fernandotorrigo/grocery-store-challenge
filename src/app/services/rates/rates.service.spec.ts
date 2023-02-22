@@ -4,13 +4,14 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ratestMock } from 'src/app/shared/mocks';
-import { Rates } from 'src/app/shared/models';
+import { envData, Rates } from 'src/app/shared/models';
 import { RatesService } from './rates.service';
 
 describe('RatesService', () => {
   let service: RatesService;
   let controller: HttpTestingController;
-  const expectedUrl = `http://localhost:8000/rates`;
+  const baseApi = envData.BASE_API || `http://localhost:8000`;
+  const expectedUrl = `${baseApi}/rates`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({

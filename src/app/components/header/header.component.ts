@@ -14,7 +14,9 @@ import { fetchRates } from 'src/app/store/rate/actions';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  
   cart$!: Observable<Cart[]>;
+  
   cart!: Cart[];
 
   constructor(private store$: Store<RootState>) {

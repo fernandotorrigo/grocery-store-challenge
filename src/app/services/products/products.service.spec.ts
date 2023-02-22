@@ -4,13 +4,14 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { stateDefaultMock } from 'src/app/shared/mocks';
-import { Product } from 'src/app/shared/models';
+import { envData, Product } from 'src/app/shared/models';
 import { ProductsService } from './products.service';
 
 describe('ProductsService', () => {
   let service: ProductsService;
   let controller: HttpTestingController;
-  const expectedUrl = `http://localhost:8000/products`;
+  const baseApi = envData.BASE_API || `http://localhost:8000`;
+  const expectedUrl = `${baseApi}/products`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
