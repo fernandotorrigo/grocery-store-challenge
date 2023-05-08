@@ -1,4 +1,4 @@
-# BJSS grocery-store-challenge 
+# grocery-store-challenge 
 
 This is a project to demonstrate the use of a shopping cart with Angular 15+, thinking about usability, scalability, responsive with tested functions.
 
